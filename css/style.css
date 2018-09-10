@@ -6,7 +6,7 @@ html {
     height: 800px;
     display: grid;
     grid-template-columns: 200px auto;
-    grid-template-rows: 100px 180px auto;
+    grid-template-rows: 120px 180px auto;
     grid-column-gap: 5px;
     grid-row-gap: 2px;
 }
@@ -16,7 +16,7 @@ html {
         height: 800px;
         display: grid;
         grid-template-columns: 100px auto;
-        grid-template-rows: 100px 180px auto;
+        grid-template-rows: 120px 180px auto;
         grid-column-gap: 5px;
         grid-row-gap: 2px;
     }
@@ -34,6 +34,18 @@ html {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.navbar__grid-size {
+    margin: 2px 0px;
+    display: flex;
+    flex-direction: row;
+}
+.navbar__grid-size input {
+    width: 30px;
+}
+.navbar__grid-size button {
+    flex-grow: 1;
 }
 
 @media only screen and (max-width: 425px) {
@@ -72,8 +84,8 @@ html {
     opacity: 0.75;
 }
 
-.mouse__preview.blocked {
-    background-color: rgba(255, 0, 0, 0.3)
+.mouse__preview.blocked .preview {
+    border: 2px solid red;
 }
 
 @media only screen and (max-width: 425px) {
@@ -248,18 +260,20 @@ html {
 }
 
 .row {
-    /*display: inline-block;*/
+    display: flex;
     clear: both;
     float: left;
-    width: 1100px;
 }
 
 .tile {
-    float: left;
     border: 1px solid black;
     height: 30px;
     width: 30px;
     user-select: none;
+}
+
+.tile.origin {
+    background-color: rgba(0,0,0,0.3);
 }
 
 .tile:hover {

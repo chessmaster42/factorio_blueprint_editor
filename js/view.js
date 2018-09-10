@@ -6,30 +6,18 @@ window.FBE = window.FBE || {};
     'use strict';
     FBE.view = {
         createSideBar: createSideBar,
-        createGrid: createGrid
+        createGrid: createGrid,
+        initializeGrid: initializeGrid,
+        resizeGrid: resizeGrid
     };
 
     var isDrawing = false,
         isClearing = false;
 
-    function createGrid(width, height) {
-        var grid = document.getElementById("grid");
-        grid.innerHTML = '';
-        var maxX = width / 2;
-        var maxY = height / 2;
-
-        for (var y = -maxY; y < maxY; y++) {
-            var row = document.createElement('div');
-            row.classList.add('row');
-            for (var x = -maxX; x < maxX; x++) {
-                var point = { x: x, y: y };
-                row.appendChild(createTile(point));
-            }
-            grid.appendChild(row);
-        }
-
+    function initializeGrid() {
         FBE.viewmodel.onItemPlaced(renderItemOnGrid);
         FBE.viewmodel.onItemRemoved(removeItemOnGrid);
+        var grid = document.getElementById("grid");
         grid.addEventListener('mousedown', function (evt) {
             isDrawing = evt.button === 0;
             isClearing = evt.button === 2;
@@ -42,7 +30,29 @@ window.FBE = window.FBE || {};
         grid.addEventListener('contextmenu',
             function (evt) { evt.preventDefault(); }
             , false);
+    }
+    
+    function resizeGrid() {
+        var widthEl = document.getElementById("grid_width");
+        var heightEl = document.getElementById("grid_height");
+        createGrid(widthEl.value, heightEl.value);
+    }
 
+    function createGrid(width, height) {
+        var grid = document.getElementById("grid");
+        grid.innerHTML = '';
+        var maxX = Math.floor(width / 2);
+        var maxY = Math.floor(height / 2);
+
+        for (var y = -maxY; y < (maxY + height % 2); y++) {
+            var row = document.createElement('div');
+            row.classList.add('row');
+            for (var x = -maxX; x < (maxX + width % 2); x++) {
+                var point = { x: x, y: y };
+                row.appendChild(createTile(point));
+            }
+            grid.appendChild(row);
+        }
     }
 
     function renderItemOnGrid(event) {
@@ -157,12 +167,10 @@ window.FBE = window.FBE || {};
             var rotation = placeable.direction - placeable.defaultDirection;
             if (rotation < 0) { rotation += 8; }
 
-            //Handles usecases where entity should be horizontally flipped instead of rotated, like inserters. Rotation 4 = 270 degrees
-            if (rotation === 4) {
-                div.style.transform = 'initial';
-                div.style.transform = 'scale(-1,1)';
-            } else {
-                div.style.transform = 'rotate(' + 45 * rotation + 'deg)';
+            div.style.transform = 'rotate(' + 45 * rotation + 'deg)';
+            if (placeable.width > placeable.height && (rotation === 2 || rotation === 6)) {
+                var diff = placeable.width - placeable.height;
+                div.style.transform = div.style.transform + ' translate(' + ((rotation === 6 ? -1 : 1) * 16 * diff) + 'px, ' + ((rotation === 6 ? -1 : 1) * 16 * diff) + 'px)';
             }
         }
         div.appendChild(createImage(placeable));

@@ -13,19 +13,20 @@
     <div id="container" class="factorio__container">
         <div id="blueprint" class="factorio__blueprint-modal">
             <textarea name="" id="bp" class="modal__data"></textarea>
-            <button onclick="copybtn(event)">copy</button>
-            <button onclick="closebtn(event)">close</button>
-        </div>
-        <div id="shareURI" class="factorio__shareURI-modal">
-            <textarea name="" id="uri" class="modal__data"></textarea>
+            <button onclick="decodebtn(event)">load</button>
             <button onclick="copybtn(event)">copy</button>
             <button onclick="closebtn(event)">close</button>
         </div>
         <div id="menu" class="navbar__actions navbar__inner-container">
-            <button onclick="savebtn()">Save Blueprint</button>
+            <button onclick="loadbtn()">Load Blueprint</button>
             <button onclick="bpbtn()">Generate Blueprint</button>
             <button onclick="FBE.viewmodel.rotateSelectedItem()">Rotate (R)</button>
             <button onclick="FBE.viewmodel.clear()">Clear Grid</button>
+            <div class="navbar__grid-size">
+                <input id="grid_width" value="34" />
+                <input id="grid_height" value="24" />
+                <button onclick="FBE.view.resizeGrid()">Resize Grid</button>
+            </div>
         </div>
         <div id="preview" class="navbar__preview navbar__inner-container preview__main"></div>     
         <div id="mousePreview" class="mouse__follow preview__copy mouse__preview"></div>       
@@ -33,8 +34,6 @@
         <div id="grid" class="factorio__grid"></div>
     </div>
     <footer>
-        Copyright &copy; 2017 elxeno 
-        <br>
         Factorio assets come directly from the Factorio game files, and are subject to all copyright policies associated with the game.
     </footer>
 

@@ -24,14 +24,20 @@ window.FBE = window.FBE || {};
         ],
         factorioBlueprintOverrides = {
             // fix bad data in factorio-blueprint
-            'steam_turbine': { width: 5, height: 3 },
             'boiler': { width: 3, height: 2 },
             // fix spots where height/width are swapped
+            'steam_turbine': { width: 5, height: 3 },
             'pump': { width: 2, height: 1 },
             'decider_combinator': { width: 2, height: 1 },
             'arithmetic_combinator': { width: 2, height: 1 }
         }
         ;
+        
+    Blueprint.setEntityData({
+        'kovarex_enrichment_process': {
+            type: 'recipe'
+        }
+    });
 
     FBE.viewmodel = {
         getPlaceableItems: getPlaceableItems,
@@ -45,6 +51,7 @@ window.FBE = window.FBE || {};
         clearPosition: clearPosition,
         couldPlaceSelectedItem: couldPlaceSelectedItem,
         encode: encode,
+        decode: decode,
         toJSON: toJSON,
         loadJSON: loadJSON,
         _: {
@@ -56,10 +63,10 @@ window.FBE = window.FBE || {};
     function loadJSON(json) {
         clear();
 
-        var parsed = new Blueprint(json);
+        bp = new Blueprint(json);
         var placeableItems = getPlaceableItems();
 
-        parsed.entities.forEach(function (entity) {
+        bp.entities.forEach(function (entity) {
             loadEntity(placeableItems, entity);
         });
         selectedItem = null;
@@ -79,8 +86,11 @@ window.FBE = window.FBE || {};
         }
 
         item.direction = entity.direction;
-        selectedItem = item;
-        tryPlaceSelectedItem(entity.position);
+        events.emit('itemPlaced', {
+            point: entity.position,
+            item: Object.assign({}, item),
+            entity: entity
+        });
     }
 
     function toJSON() {
@@ -89,6 +99,11 @@ window.FBE = window.FBE || {};
 
     function encode() {
         return bp.entities.length > 0 ? bp.encode() : null;
+    }
+    
+    function decode(bpString) {
+        // The blueprint constructor can work with json or encoded string
+        loadJSON(bpString);
     }
 
     function couldPlaceSelectedItem(point) {

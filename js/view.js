@@ -31,7 +31,7 @@ window.FBE = window.FBE || {};
             function (evt) { evt.preventDefault(); }
             , false);
     }
-    
+
     function resizeGrid() {
         var widthEl = document.getElementById("grid_width");
         var heightEl = document.getElementById("grid_height");

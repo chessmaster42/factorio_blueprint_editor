@@ -32,7 +32,7 @@ window.FBE = window.FBE || {};
             'arithmetic_combinator': { width: 2, height: 1 }
         }
         ;
-        
+
     Blueprint.setEntityData({
         'kovarex_enrichment_process': {
             type: 'recipe'
@@ -100,7 +100,7 @@ window.FBE = window.FBE || {};
     function encode() {
         return bp.entities.length > 0 ? bp.encode() : null;
     }
-    
+
     function decode(bpString) {
         // The blueprint constructor can work with json or encoded string
         loadJSON(bpString);

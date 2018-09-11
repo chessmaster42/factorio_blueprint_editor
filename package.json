@@ -17,16 +17,33 @@
     "Tool"
   ],
   "author": {
-    "name": "Elxeno" 
+    "name": "Elxeno"
   },
   "contributors": [
-    { "name": "Armienn" },
-    { "name": "camerongillette" },
-    { "name": "Fruch6807" },
-    { "name": "lessthantrue" },
-    { "name": "MarcProe" },
-    { "name": "ryepup" },
-    { "name": "SpyMaster356" }
+    {
+      "name": "Armienn"
+    },
+    {
+      "name": "camerongillette"
+    },
+    {
+      "name": "Fruch6807"
+    },
+    {
+      "name": "lessthantrue"
+    },
+    {
+      "name": "MarcProe"
+    },
+    {
+      "name": "ryepup"
+    },
+    {
+      "name": "SpyMaster356"
+    },
+    {
+      "name": "chessmaster42"
+    }
   ],
   "license": "MIT",
   "bugs": {

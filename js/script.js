@@ -61,10 +61,10 @@ window.bpbtn = function () {
 window.loadbtn = function () {
     document.getElementById("blueprint").style.display = "block";
     document.getElementById("bp").value = "";
-}
+};
 
 window.decodebtn = function () {
     var encoded = document.getElementById("bp").value;
     window.FBE.viewmodel.decode(encoded);
     document.getElementById("blueprint").style.display = "none";
-}
+};
